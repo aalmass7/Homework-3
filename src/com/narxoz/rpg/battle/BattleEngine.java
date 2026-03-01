@@ -4,10 +4,18 @@ import java.util.List;
 import java.util.Random;
 
 public final class BattleEngine {
+    private static final long DEFAULT_SEED = 1L;
+    private static final int CRIT_CHANCE_PERCENT = 20;
+    private static final int CRIT_MULTIPLIER = 2;
+
     private static BattleEngine instance;
-    private Random random = new Random(1L);
+
+    private Random random;
+    private long seed;
 
     private BattleEngine() {
+        this.seed = DEFAULT_SEED;
+        this.random = new Random(DEFAULT_SEED);
     }
 
     public static BattleEngine getInstance() {
@@ -18,12 +26,13 @@ public final class BattleEngine {
     }
 
     public BattleEngine setRandomSeed(long seed) {
+        this.seed = seed;
         this.random = new Random(seed);
         return this;
     }
 
     public void reset() {
-        // TODO: reset any battle state if you add it
+       setRandomSeed(DEFAULT_SEED);
     }
 
     public EncounterResult runEncounter(List<Combatant> teamA, List<Combatant> teamB) {

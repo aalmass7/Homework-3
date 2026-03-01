@@ -7,6 +7,9 @@ public class EnemyCombatantAdapter implements Combatant {
     private final Enemy enemy;
 
     public EnemyCombatantAdapter(Enemy enemy) {
+        if(enemy == null){
+            throw new IllegalArgumentException("enemy mustn't be null");
+        }
         this.enemy = enemy;
     }
 
@@ -17,7 +20,6 @@ public class EnemyCombatantAdapter implements Combatant {
 
     @Override
     public int getAttackPower() {
-        // TODO: translate enemy damage to combat attack
         return enemy.getDamage();
     }
 

@@ -89,7 +89,7 @@ public final class BattleEngine {
         }
 
         if (rounds >= maxRounds) {
-            result.addLog("Max rounds reached. Draw");
+            result.setWinner("Draw");
         }
 
         result.setRounds(rounds);
@@ -128,13 +128,15 @@ public final class BattleEngine {
                 break;
             }
             int baseDamage = safeNonNegative(attacker.getAttackPower());
-            boolean crit = false;
-            int finalDamage = baseDamage;
 
-            if(baseDamage > 0 && random.nextInt(100) < CRIT_CHANCE_PERCENT){
-                crit = true;
+            int roll = random.nextInt(100);
+            boolean crit = baseDamage > 0 && roll < CRIT_CHANCE_PERCENT;
+
+            int finalDamage = baseDamage;
+            if (crit) {
                 finalDamage = baseDamage * CRIT_MULTIPLIER;
             }
+
             if(finalDamage == 0){
                 result.addLog("Team " + attackersName + ": " + attacker.getName()
                         + " attacks " + target.getName() + " but deals 0 damage");

@@ -88,6 +88,10 @@ public final class BattleEngine {
             }
         }
 
+        if (rounds >= maxRounds) {
+            result.addLog("Max rounds reached. Draw");
+        }
+
         result.setRounds(rounds);
         if(a.isEmpty() && b.isEmpty()){
             result.setWinner("Draw");
